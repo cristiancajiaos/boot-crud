@@ -5,7 +5,9 @@ import com.example.bootcrud.entity.Employee;
 import com.example.bootcrud.exception.EmployeeNotFoundException;
 import com.example.bootcrud.mapper.EmployeeMapper;
 import com.example.bootcrud.repository.EmployeeRepository;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,11 @@ public class EmployeeServiceImpl implements EmployeeService {
       throw new EmployeeNotFoundException("Employee with id - " + employeeId + " not found.");
     }
     return EmployeeMapper.mapToEmployeeDto(employee.get());
+  }
+
+  @Override
+  public List<EmployeeDto> getEmployees() {
+    List<Employee> employees = employeeRepository.findAll();
+    return employees.stream().map((emp) -> EmployeeMapper.mapToEmployeeDto(emp)).collect(Collectors.toList());
   }
 }

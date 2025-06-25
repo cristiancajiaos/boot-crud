@@ -3,6 +3,7 @@ package com.example.bootcrud.controller;
 import com.example.bootcrud.dto.EmployeeDto;
 import com.example.bootcrud.exception.EmployeeNotFoundException;
 import com.example.bootcrud.service.EmployeeService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,11 @@ public class EmployeeController {
     } catch (EmployeeNotFoundException employeeNotFoundException) {
       throw employeeNotFoundException;
     }
+  }
+
+  @GetMapping(value = "/employees")
+  public ResponseEntity<List<EmployeeDto>> getEmployees() {
+    List<EmployeeDto> employees = employeeService.getEmployees();
+    return new ResponseEntity<>(employees, HttpStatus.OK);
   }
 }
