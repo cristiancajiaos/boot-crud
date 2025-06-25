@@ -11,6 +11,8 @@ public interface EmployeeService {
 
   List<EmployeeDto> getEmployees();
 
+  EmployeeDto updateEmployee(EmployeeDto employeeDto) throws EmployeeNotFoundException;
+
   void deleteEmployee(Long employeeId) throws EmployeeNotFoundException;
 
 }
