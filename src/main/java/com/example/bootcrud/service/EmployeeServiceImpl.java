@@ -38,4 +38,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     List<Employee> employees = employeeRepository.findAll();
     return employees.stream().map((emp) -> EmployeeMapper.mapToEmployeeDto(emp)).collect(Collectors.toList());
   }
+
+  @Override
+  public void deleteEmployee(Long employeeId) throws EmployeeNotFoundException {
+    Optional<Employee> employee = employeeRepository.findById(employeeId);
+    if (employee.isEmpty()) {
+      throw new EmployeeNotFoundException("Employee with id " + employeeId + " not found");
+    }
+    employeeRepository.deleteById(employeeId);
+  }
 }
